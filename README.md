@@ -1,74 +1,136 @@
-<<<<<<< HEAD
-# study_app_helper
-=======
-# Getting Started with Create React App
+# Quiz Forge Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+강의 음성을 분석하여 자동으로 학습 자료를 생성하는 웹 애플리케이션의 프론트엔드입니다.
 
-## Available Scripts
+## 🌏 멀티리전 배포
 
-In the project directory, you can run:
+이 애플리케이션은 AWS Amplify를 통해 전세계 배포를 지원합니다:
 
-### `npm start`
+### 배포 구성
+- **AWS Amplify**: CI/CD 파이프라인 및 호스팅
+- **CloudFront**: 전세계 엣지 로케이션을 통한 콘텐츠 전송
+- **Route 53**: 도메인 관리 및 DNS 라우팅
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### API 엔드포인트 설정
+```javascript
+// amplify/backend/api/config.json
+{
+  "api": {
+    "endpoints": [
+      {
+        "name": "api",
+        "endpoint": "https://api.yourdomain.com"
+      }
+    ]
+  }
+}
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Route 53의 지연 시간 기반 라우팅을 통해 가장 가까운 리전의 API로 자동 연결됩니다.
 
-### `npm test`
+## 🚀 배포 방법
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 사전 준비
 
-### `npm run build`
+1. Amplify CLI 설치 및 설정
+```bash
+npm install -g @aws-amplify/cli
+amplify configure
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. 필요한 패키지 설치
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 배포 단계
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Amplify 초기화 (최초 1회):
+```bash
+amplify init
+```
 
-### `npm run eject`
+2. 프론트엔드 배포:
+```bash
+amplify push
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+배포는 GitHub 저장소와 연동된 Amplify Console에서 자동으로 진행됩니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠 개발 환경 설정
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 로컬 개발 서버 실행
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
 
-## Learn More
+### 테스트 실행
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm test
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 프로덕션 빌드
 
-### Code Splitting
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📦 주요 기능
 
-### Analyzing the Bundle Size
+- 사용자 인증 (로그인/회원가입)
+- 강의 업로드 및 관리
+- 실시간 처리 상태 모니터링
+- 문제 및 분석 결과 조회
+- 커뮤니티 기능 (게시글/댓글)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔧 기술 스택
 
-### Making a Progressive Web App
+- **Framework**: React 18
+- **상태 관리**: Redux Toolkit
+- **스타일링**: TailwindCSS
+- **라우팅**: React Router v7
+- **API 통신**: Axios
+- **차트**: Recharts
+- **UI 컴포넌트**: 
+  - Headless UI
+  - Heroicons
+  - Lucide React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📁 프로젝트 구조
 
-### Advanced Configuration
+```
+study-app-frontend/
+├── public/
+├── src/
+│   ├── api/          # API 통신 관련
+│   ├── components/   # 재사용 가능한 컴포넌트
+│   ├── pages/        # 페이지 컴포넌트
+│   ├── store/        # Redux 스토어
+│   ├── utils/        # 유틸리티 함수
+│   └── App.jsx       # 메인 앱 컴포넌트
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## ⚙️ 환경 변수
 
-### Deployment
+### 개발 환경 (.env.development)
+```
+REACT_APP_API_URL=http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 프로덕션 환경 (.env.production)
+```
+REACT_APP_API_URL=https://api.yourdomain.com
+```
 
-### `npm run build` fails to minify
+## 🔍 성능 최적화
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 8b81116 (Initialize project using Create React App)
+- Route-based Code Splitting
+- CloudFront를 통한 전세계 CDN 배포
+- 이미지 최적화
+- Lazy Loading 적용
+
+## 📝 라이선스
+
+이 프로젝트는 MIT 라이선스를 따릅니다.
