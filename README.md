@@ -92,7 +92,9 @@ npm run build
 - **스타일링**: TailwindCSS
 - **라우팅**: React Router v7
 - **API 통신**: Axios
-- **차트**: Recharts
+- **AWS 서비스**: 
+  - AWS Amplify
+  - Amplify UI React
 - **UI 컴포넌트**: 
   - Headless UI
   - Heroicons
